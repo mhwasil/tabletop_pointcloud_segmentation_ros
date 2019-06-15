@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="input_pointcloud_topic" default="/arm_cam3d/depth_registered/points" />
+  <arg name="input_image_topic" default="/arm_cam3d/rgb/image_raw" />
+  <arg name="target_frame" default="base_link" />
+  <arg name="tabletop_pointcloud_segmentation_ros_config_file" default="$(find tabletop_pointcloud_segmentation_ros)/config/pointcloud_segmentation_constraints.yaml" />
+
+  <group ns="tabletop_pointcloud_segmentation_ros">
+    <rosparam file="$(arg tabletop_pointcloud_segmentation_ros_config_file)" command="load"/>
+    <node pkg="tabletop_pointcloud_segmentation_ros" type="table_top_segmentation" name="table_top_segmentation" output="screen" >
+      <remap from="~input" to="$(arg input_pointcloud_topic)" />
+      <remap from="~input_image_topic" to="/arm_cam3d/rgb/image_raw" />
+      <remap from="~object_list" to="/mcr_perception/object_detector/object_list"/>
+      <param name="target_frame_id" value="$(arg target_frame)" type="str" />
+      <param name="debug_mode" value="false" />
+      <param name="dataset_collection" value="true" />
+      <param name="logdir" value="/tmp/" />
+      <param name="class_name" value="S40_40_G" />
+    </node>
+  </group>
+
+</launch>
