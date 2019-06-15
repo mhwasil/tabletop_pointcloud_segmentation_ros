@@ -25,7 +25,7 @@
 #include <tabletop_pointcloud_segmentation_ros/plane_segmentation.h>
 #include <tabletop_pointcloud_segmentation_ros/color.h>
 #include <common/bounding_box.h>
-#include <perception_msgs/ImageCloud.h>
+#include <ros_perception_msgs/ImageCloud.h>
 
 #include <message_filters/subscriber.h>
 #include <message_filters/time_synchronizer.h>
@@ -126,7 +126,7 @@ class TableTopSegmentationROS
         std::string input_cloud_frame_id_;
         std::string class_name_;
     private:
-        void pointcloudCallback(const perception_msgs::ImageCloudPtr &msg);
+        void pointcloudCallback(const ros_perception_msgs::ImageCloudPtr &msg);
         void cameraInfoCallback(const sensor_msgs::CameraInfoPtr &msg);
         void triggerCameraCallback(const sensor_msgs::PointCloud2Ptr &msg);
         void TableTopSegmentationROS::imageCallback(const sensor_msgs::ImagePtr &msg);

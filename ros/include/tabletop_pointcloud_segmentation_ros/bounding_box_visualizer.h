@@ -12,7 +12,7 @@
 
 #include <ros/ros.h>
 
-#include <perception_msgs/BoundingBox.h>
+#include <ros_perception_msgs/BoundingBox.h>
 #include <tabletop_pointcloud_segmentation_ros/color.h>
 
 namespace mcr
@@ -32,9 +32,9 @@ public:
                           Color color,
                           bool check_subscribers = true);
 
-    void publish(const perception_msgs::BoundingBox& box, const std::string& frame_id);
+    void publish(const ros_perception_msgs::BoundingBox& box, const std::string& frame_id);
 
-    void publish(const std::vector<perception_msgs::BoundingBox>& boxes, const std::string& frame_id);
+    void publish(const std::vector<ros_perception_msgs::BoundingBox>& boxes, const std::string& frame_id);
 
     int getNumSubscribers();
 

@@ -4,10 +4,10 @@
  *
  */
 
-#include <perception_msgs/BoundingBox.h>
-#include <perception_msgs/BoundingBoxList.h>
-#include <perception_msgs/ObjectList.h>
-#include <perception_msgs/RecognizeObject.h>
+#include <ros_perception_msgs/BoundingBox.h>
+#include <ros_perception_msgs/BoundingBoxList.h>
+#include <ros_perception_msgs/ObjectList.h>
+#include <ros_perception_msgs/RecognizeObject.h>
 #include <tabletop_pointcloud_segmentation_ros/impl/helpers.hpp>
 
 #include <pcl_conversions/pcl_conversions.h>
@@ -34,7 +34,7 @@
 #include <tabletop_pointcloud_segmentation_ros/octree_pointcloud_occupancy_colored.h>
 #include <pcl/octree/octree_impl.h>
 #include <tabletop_pointcloud_segmentation_ros/plane_segmentation.h>
-#include <perception_msgs/ImageCloud.h>
+#include <ros_perception_msgs/ImageCloud.h>
 
 #include <message_filters/subscriber.h>
 #include <message_filters/time_synchronizer.h>
@@ -48,7 +48,7 @@ TableTopSegmentationROS::TableTopSegmentationROS(): nh_("~"),cluster_visualizer_
     trigger_camera_device_(false)
 {
     pub_debug_ = nh_.advertise<sensor_msgs::PointCloud2>("output", 1);
-    pub_object_list_ = nh_.advertise<perception_msgs::ObjectList>("object_list", 1);
+    pub_object_list_ = nh_.advertise<ros_perception_msgs::ObjectList>("object_list", 1);
     sub_event_in_ = nh_.subscribe("event_in", 1, &TableTopSegmentationROS::eventCallback, this);
     pub_event_out_ = nh_.advertise<std_msgs::String>("event_out", 1);
     pub_workspace_height_ = nh_.advertise<std_msgs::Float64>("workspace_height", 1);
@@ -179,7 +179,7 @@ void TableTopSegmentationROS::getPixelLocation(const Eigen::Vector3f &point)
     std::cout<<"X,Y: "<<x<<", "<<y<<std::endl;
 }
 
-void TableTopSegmentationROS::pointcloudCallback(const perception_msgs::ImageCloudPtr &msg)
+void TableTopSegmentationROS::pointcloudCallback(const ros_perception_msgs::ImageCloudPtr &msg)
 {
     std::string target_frame_id;
     nh_.param<std::string>("target_frame_id", target_frame_id, "base_link");
@@ -267,8 +267,8 @@ void TableTopSegmentationROS::segment()
     pub_workspace_height_.publish(workspace_height_msg);
     pub_debug_.publish(*debug);
 
-    perception_msgs::BoundingBoxList bounding_boxes;
-    perception_msgs::ObjectList object_list;
+    ros_perception_msgs::BoundingBoxList bounding_boxes;
+    ros_perception_msgs::ObjectList object_list;
     geometry_msgs::PoseArray poses;
 
     bounding_boxes.bounding_boxes.resize(boxes.size());

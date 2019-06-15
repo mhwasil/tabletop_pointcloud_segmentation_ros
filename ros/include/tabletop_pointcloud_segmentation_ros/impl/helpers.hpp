@@ -1,14 +1,14 @@
 #ifndef HELPERS_HPP
 #define HELPERS_HPP
 
-#include <perception_msgs/PlanarPolygon.h>
-#include <perception_msgs/BoundingBox.h>
+#include <ros_perception_msgs/PlanarPolygon.h>
+#include <ros_perception_msgs/BoundingBox.h>
 
 //#include "mcr_scene_segmentation/aliases.h"
 #include "common/bounding_box.h"
 
 /** Convert from PCL PlanarPolygon to ROS message. */
-inline void convertPlanarPolygon(const PlanarPolygon& polygon, perception_msgs::PlanarPolygon& polygon_msg)
+inline void convertPlanarPolygon(const PlanarPolygon& polygon, ros_perception_msgs::PlanarPolygon& polygon_msg)
 {
     for (int i = 0; i < 4; ++i)
     {
@@ -27,7 +27,7 @@ inline void convertPlanarPolygon(const PlanarPolygon& polygon, perception_msgs::
 }
 
 /** Convert from ROS message to PCL PlanarPolygon. */
-inline void convertPlanarPolygon(const perception_msgs::PlanarPolygon& polygon_msg, PlanarPolygon& polygon)
+inline void convertPlanarPolygon(const ros_perception_msgs::PlanarPolygon& polygon_msg, PlanarPolygon& polygon)
 {
     PointCloud::VectorType contour;
     Eigen::Vector4f coefficients(polygon_msg.coefficients.elems);
@@ -67,7 +67,7 @@ inline double computePlanarPolygonArea(const PlanarPolygon& polygon)
 }
 
 /** Convert from BoundingBox object to ROS message. */
-inline void convertBoundingBox(const BoundingBox& bounding_box, perception_msgs::BoundingBox& bounding_box_msg)
+inline void convertBoundingBox(const BoundingBox& bounding_box, ros_perception_msgs::BoundingBox& bounding_box_msg)
 {
     const BoundingBox::Point& center = bounding_box.getCenter();
     bounding_box_msg.center.x = center[0];

@@ -13,7 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   sensor_msgs
   pcl_ros
-  perception_msgs
+  ros_perception_msgs
   message_filters
   cv_bridge
   image_geometry
